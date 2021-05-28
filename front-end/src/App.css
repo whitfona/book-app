@@ -1,0 +1,128 @@
+/* 
+  1. Global Styles
+  2. Header & Header Form Styles
+  3. Table Styles
+  4. Footer Styles
+  5. Login Form
+
+*/
+
+/* 1. Global Styles */
+:root{
+  --primary-color: #85C5F0;
+  --secondary-color: #B2DBF6;
+  --accent-color: #DBF6B2;
+  --text-white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  max-width: 500px;
+  background-color: var(--primary-color);
+  margin: auto;
+  text-align: center;
+  border-radius: 20px;
+}
+
+h2 {
+  padding: 1rem 0;
+}
+
+/* 2. Header & Header Form Styles */
+
+.Header {
+  color: var(--text-white);
+  padding: 2rem 1rem;
+}
+
+.Header form {
+  margin-top: 1rem;
+}
+
+.Header input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin: 0.4rem 0;
+  border: none;
+  border-radius: 20px;
+}
+
+.Header input[type="submit"], select {
+  padding: .75rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--accent-color);
+  transition: all ease-in-out 0.2s;
+}
+
+.Header input[type="submit"]:hover {
+  background-color: #99E428;
+  cursor: pointer;
+ }
+
+.flex-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+/* 3. Table Styles */
+
+.Read-Books, .To-Read-Books {
+  border-top: 2px solid #f8f8f8;
+}
+
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: none;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.4rem 0.7rem;
+}
+
+td {
+  text-align: left;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+tbody tr:nth-child(even) {
+ background-color: var(--secondary-color);
+}
+
+.table-icon {
+  width: 46px;
+}
+
+.trash-can {
+  width: 24px;
+  cursor: pointer;
+}
+
+/* 4. Footer Styles */
+footer {
+  padding: 1rem 0;
+}
+
+/* 5. Login Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form h1 {
+  margin-bottom: 2rem;
+}
