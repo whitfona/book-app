@@ -8,7 +8,7 @@ function Form({ addBook }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !author) return;
-    // check for status of drop down menu
+    // check for status of book as 'read' or 'to-read'
     let isRead = 1;
     if (read === 'to-read') {
       isRead = 0;

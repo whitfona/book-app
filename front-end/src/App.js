@@ -6,12 +6,9 @@ import React, { useState, useEffect } from 'react';
 import closedBin from './images/bin-closed.png';
 import openBin from './images/bin-open.png';
 
+// Title
 function Welcome(props) {
   return <h1>{props.name}'s Book List</h1>;
-}
-
-function Message(props) {
-  return props.success ? <h3 className="message success">Your Book Was Added!</h3> : <h3 className="message error">Error! Your Book Was Not Added.</h3>
 }
 
 function BookList({ book, index, removeBook }) {
@@ -33,37 +30,48 @@ function BookList({ book, index, removeBook }) {
 }
 
 function App() {
-  // array of book objects {title, author}
+  // array of book objects {title, author, isRead}
   const [books, setBooks] = useState([]);
-  // console.log(books);
+  // messages for errors or book submission
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState(false);
 
   // get books from api
   useEffect(() => {
-    axios.get('/book-list')
-      .then((books) => setBooks(books.data));
+    axios.get('/book-list').then((books) => setBooks(books.data));
     // return () => {
     //   To Do, add clean up function
     // };
   }, [books]);
 
+  // message disappears after 3 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage();
+    }, 3000);
+  }, [message]);
+
   // add book to list
   const addBook = (title, author, isRead) => {
-    axios.post('/add-books', {
-      title,
-      author,
-      isRead,
-    })
-    .then(alert('Book added!'))
-    .catch(err => alert('ERROR BOOK NOT ADDED!'));
-      // .then(res => {
-      //   console.log(res);
-      //   console.log(res.data);
-      // })
+    axios
+      .post('/add-book', {
+        title,
+        author,
+        isRead,
+      })
+      .then((res) => {
+        setError(false);
+        setMessage('Book added!');
+      })
+      .catch((err) => {
+        setError(true);
+        setMessage('Error! Book not added.');
+      })
   };
 
   const removeBook = (index) => {
-    axios.delete('/delete-book', { data:  { index: index } } )
-  }
+    axios.delete('/delete-book', { data: { index: index } });
+  };
 
   return (
     <div className='App'>
@@ -71,7 +79,12 @@ function App() {
         {/* <Login /> */}
         <Welcome name='Nick' />
         <Form addBook={addBook} />
-        <Message />
+        {message && (
+          <p className={`message ${error ? 'error' : 'success'}`}>
+            {message}
+          </p>
+        )}
+        {/* {message && <p className='message'> {message} </p>} */}
       </header>
       <div className='To-Read-Books'>
         <h2>To Read Books</h2>
