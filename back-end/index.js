@@ -36,6 +36,8 @@ app.post('/add-book', (req, res) => {
     if(err) {
       console.log(err)
     }
+    res.send('Book added');
+    res.status(200);
   })
 });
 
