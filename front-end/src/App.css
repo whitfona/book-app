@@ -22,7 +22,7 @@
 }
 
 .App {
-  max-width: 500px;
+  max-width: 600px;
   background-color: var(--primary-color);
   margin: auto;
   text-align: center;
@@ -69,6 +69,19 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   margin-top: 1rem;
+}
+
+.message {
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.error {
+  color: #ff0000;
 }
 
 /* 3. Table Styles */

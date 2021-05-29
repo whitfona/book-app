@@ -9,9 +9,9 @@ function Form({ addBook }) {
     e.preventDefault();
     if (!title || !author) return;
     // check for status of drop down menu
-    let isRead = true;
+    let isRead = 1;
     if (read === 'to-read') {
-      isRead = false;
+      isRead = 0;
     }
     addBook(title, author, isRead);
     setTitle('');

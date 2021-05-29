@@ -1,12 +1,17 @@
 import './App.css';
+import axios from 'axios';
 import Form from './Form.js';
-import Login from './Login.js';
-import React, { useState } from 'react';
+// import Login from './Login.js';
+import React, { useState, useEffect } from 'react';
 import closedBin from './images/bin-closed.png';
 import openBin from './images/bin-open.png';
 
 function Welcome(props) {
   return <h1>{props.name}'s Book List</h1>;
+}
+
+function Message(props) {
+  return props.success ? <h3 className="message success">Your Book Was Added!</h3> : <h3 className="message error">Error! Your Book Was Not Added.</h3>
 }
 
 function BookList({ book, index, removeBook }) {
@@ -30,19 +35,35 @@ function BookList({ book, index, removeBook }) {
 function App() {
   // array of book objects {title, author}
   const [books, setBooks] = useState([]);
-  console.log(books);
+  // console.log(books);
+
+  // get books from api
+  useEffect(() => {
+    axios.get('/book-list')
+      .then((books) => setBooks(books.data));
+    // return () => {
+    //   To Do, add clean up function
+    // };
+  }, [books]);
 
   // add book to list
   const addBook = (title, author, isRead) => {
-    const newBook = [...books, { title, author, isRead  }];
-    setBooks(newBook);
+    axios.post('/add-books', {
+      title,
+      author,
+      isRead,
+    })
+    .then(alert('Book added!'))
+    .catch(err => alert('ERROR BOOK NOT ADDED!'));
+      // .then(res => {
+      //   console.log(res);
+      //   console.log(res.data);
+      // })
   };
 
-  // remove book from list
   const removeBook = (index) => {
-    // console.log(index)
-    setBooks(books.filter((book) => book.title !== index));
-  };
+    axios.delete('/delete-book', { data:  { index: index } } )
+  }
 
   return (
     <div className='App'>
@@ -50,31 +71,8 @@ function App() {
         {/* <Login /> */}
         <Welcome name='Nick' />
         <Form addBook={addBook} />
+        <Message />
       </header>
-      <div className='Read-Books'>
-        <h2>Read Books</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {books
-              .filter((book) => book.isRead)
-              .map((book, index) => (
-                <BookList
-                  key={index}
-                  index={book.title}
-                  book={book}
-                  removeBook={removeBook}
-                />
-              ))}
-          </tbody>
-        </table>
-      </div>
       <div className='To-Read-Books'>
         <h2>To Read Books</h2>
         <table>
@@ -88,10 +86,36 @@ function App() {
           <tbody>
             {books
               .filter((book) => !book.isRead)
+              .reverse()
               .map((book, index) => (
                 <BookList
                   key={index}
-                  index={book.title}
+                  index={book.id}
+                  book={book}
+                  removeBook={removeBook}
+                />
+              ))}
+          </tbody>
+        </table>
+      </div>
+      <div className='Read-Books'>
+        <h2>Read Books</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {books
+              .filter((book) => book.isRead)
+              .reverse()
+              .map((book, index) => (
+                <BookList
+                  key={index}
+                  index={book.id}
                   book={book}
                   removeBook={removeBook}
                 />
