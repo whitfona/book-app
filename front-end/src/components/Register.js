@@ -17,7 +17,9 @@ function Register() {
     }
     if (!emailReg) {
       alert('Email is Required');
-    } else {
+    }
+    // TO DO: add check for email verification
+    else {
       axios
         .post('/register', {
           username: usernameReg,
@@ -45,7 +47,7 @@ function Register() {
   //   };
 
   return (
-    <form className='login-form' onSubmit={register}>
+    <form className='form-padding' onSubmit={register}>
       <h1>Register</h1>
       <input
         type='email'
@@ -67,6 +69,14 @@ function Register() {
         type='text'
         name='password'
         placeholder='Password...'
+        onChange={(e) => {
+          setPasswordReg(e.target.value);
+        }}
+      />
+      <input
+        type='text'
+        name='passwordVerify'
+        placeholder='Retype Password...'
         onChange={(e) => {
           setPasswordReg(e.target.value);
         }}

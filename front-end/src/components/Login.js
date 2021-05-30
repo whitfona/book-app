@@ -35,7 +35,7 @@ function Login() {
   };
 
   return (
-    <form className='login-form' onSubmit={login}>
+    <form className='form-padding' onSubmit={login}>
       <h1>Please Log In</h1>
       <input
         type='text'
@@ -46,7 +46,7 @@ function Login() {
         }}
       />
       <input
-        type='text'
+        type='pasword'
         name='password'
         placeholder='Password...'
         onChange={(e) => {

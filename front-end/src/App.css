@@ -3,7 +3,6 @@
   2. Header & Header Form Styles
   3. Table Styles
   4. Footer Styles
-  5. Login Form
 
 */
 
@@ -35,16 +34,25 @@ h2 {
 
 /* 2. Header & Header Form Styles */
 
-.Header {
+.welcome-msg {
+  color: #fff;
+  padding-top: 2rem;
+}
+
+.form-padding {
   color: var(--text-white);
   padding: 2rem 1rem;
 }
 
-.Header form {
+.form-padding h1 {
+  margin-bottom: 2rem;
+}
+
+.Header form, .book-container form {
   margin-top: 1rem;
 }
 
-.Header input[type="text"], .Header input[type="email"] {
+input[type="text"], input[type="email"] {
   width: 100%;
   padding: 0.5rem 1rem;
   margin: 0.4rem 0;
@@ -52,15 +60,16 @@ h2 {
   border-radius: 20px;
 }
 
-.Header input[type="submit"], select {
+input[type="submit"], select {
   padding: .75rem 1.5rem;
   border: none;
   border-radius: 20px;
   background-color: var(--accent-color);
   transition: all ease-in-out 0.2s;
+  margin-top: 2rem;
 }
 
-.Header input[type="submit"]:hover {
+input[type="submit"]:hover {
   background-color: #DBF6B2;
   cursor: pointer;
  }
@@ -68,7 +77,6 @@ h2 {
 .flex-container {
   display: flex;
   justify-content: space-evenly;
-  margin-top: 1rem;
 }
 
 .message.success {
@@ -131,16 +139,4 @@ footer a {
 
 footer a:hover {
   color: black;
-}
-
-/* 5. Login Form */
-.login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-form h1 {
-  margin-bottom: 2rem;
 }
