@@ -72,21 +72,39 @@ app.delete('/delete-book', (req, res) => {
 
 // register user (add user to database)
 app.post('/register', (req, res) => {
-
   const username = req.body.username;
-  const password = req.body.password;  
+  const password = req.body.password;
   const email = req.body.email;
 
-  bcrypt.hash(password, saltRounds, (err, hash) => {
+  // query database to see if username already exisits
   connection.query(
-    'INSERT INTO Users (username, password, email) VALUES (?, ?, ?)',
-    [username, hash, email],
-    (err) => {
+    'SELECT * FROM Users WHERE username = ?',
+    username,
+    (err, match) => {
       if (err) {
-        console.log(err);
+        res.send(err);
+      } else if (match.length > 0) {
+        res.status(409).send({ message: 'Username already exisits' });
+      } else {
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+          connection.query(
+            'INSERT INTO Users (username, password, email) VALUES (?, ?, ?)',
+            [username, hash, email],
+            (err, result) => {
+              if (err) {
+                res.send(err);
+              }
+              if (result) {
+                res.status(200).send(result);
+              }
+            }
+          );
+        });
       }
-    });
-  })
+    }
+ 
+ 
+  );
 });
 
 

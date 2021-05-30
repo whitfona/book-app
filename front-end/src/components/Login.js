@@ -46,7 +46,7 @@ function Login() {
         }}
       />
       <input
-        type='pasword'
+        type='password'
         name='password'
         placeholder='Password...'
         onChange={(e) => {
