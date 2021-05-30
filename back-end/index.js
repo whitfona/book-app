@@ -47,6 +47,7 @@ app.delete('/delete-book', (req, res) => {
     if (err) {
       console.log(err)
     }
+    res.send(`Book Deleted`);
   });
 });
 

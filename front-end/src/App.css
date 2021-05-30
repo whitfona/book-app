@@ -11,7 +11,7 @@
 :root{
   --primary-color: #85C5F0;
   --secondary-color: #B2DBF6;
-  --accent-color: #DBF6B2;
+  --accent-color: #99E428;
   --text-white: #fff;
 }
 
@@ -30,7 +30,7 @@
 }
 
 h2 {
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 /* 2. Header & Header Form Styles */
@@ -61,7 +61,7 @@ h2 {
 }
 
 .Header input[type="submit"]:hover {
-  background-color: #99E428;
+  background-color: #DBF6B2;
   cursor: pointer;
  }
 
@@ -69,11 +69,6 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   margin-top: 1rem;
-}
-
-.message {
-  margin-top: 2rem;
-  font-weight: 600;
 }
 
 .message.success {
@@ -125,7 +120,17 @@ tbody tr:nth-child(even) {
 
 /* 4. Footer Styles */
 footer {
+  color: #fff;
   padding: 1rem 0;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: black;
 }
 
 /* 5. Login Form */

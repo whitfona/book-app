@@ -60,17 +60,31 @@ function App() {
         isRead,
       })
       .then((res) => {
-        setError(false);
-        setMessage('Book added!');
+        if (res.status === 200) {
+          setError(false);
+          setMessage('Book Added!');
+        }
       })
       .catch((err) => {
         setError(true);
         setMessage('Error! Book not added.');
-      })
+      });
   };
 
   const removeBook = (index) => {
-    axios.delete('/delete-book', { data: { index: index } });
+    axios
+      .delete('/delete-book', { data: { index: index } })
+      .then((res) => {
+        if (res.status === 200) {
+          setError(false);
+          setMessage('Book Deleted!');
+        }
+      })
+      .catch((err) => {
+        setError(true);
+        setMessage('Error! Book not deleted.');
+        // console.log(err);
+      });
   };
 
   return (
@@ -80,14 +94,13 @@ function App() {
         <Welcome name='Nick' />
         <Form addBook={addBook} />
         {message && (
-          <p className={`message ${error ? 'error' : 'success'}`}>
+          <h2 className={`message ${error ? 'error' : 'success'}`}>
             {message}
-          </p>
+          </h2>
         )}
-        {/* {message && <p className='message'> {message} </p>} */}
       </header>
       <div className='To-Read-Books'>
-        <h2>To Read Books</h2>
+        <h2>Books to Read</h2>
         <table>
           <thead>
             <tr>
@@ -137,7 +150,11 @@ function App() {
         </table>
       </div>
       <footer>
-        <p>&#169; Whitford Design | 2021</p>
+        <p>
+          <a href='https://www.whitforddesign.ca' title='Whitford Design'>
+            &#169; Whitford Design | 2021
+          </a>
+        </p>
       </footer>
     </div>
   );
