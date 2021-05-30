@@ -1,16 +1,32 @@
 import './App.css';
 import axios from 'axios';
-import WelcomeMessage from './components/WelcomeMessage';
 import Register from './components/Register';
 import Login from './components/Login.js';
 import AddBookForm from './components/AddBookForm';
-import BookList from './components/BookList'
 import Footer from './components/Footer';
+import WelcomeMessage from './components/WelcomeMessage';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import closedBin from './images/bin-closed.png';
 import openBin from './images/bin-open.png';
 
+function BookList({ book, index, removeBook }) {
+  return (
+    <tr>
+      <td>{book.title}</td>
+      <td>{book.author} </td>
+      <td className='table-icon' onClick={() => removeBook(index)}>
+        <img
+          className='trash-can'
+          src={closedBin}
+          alt='Closed Trash Bin'
+          onMouseOver={(e) => (e.currentTarget.src = openBin)}
+          onMouseLeave={(e) => (e.currentTarget.src = closedBin)}
+        />
+      </td>
+    </tr>
+  );
+}
 
 function App() {
   // // array of book objects {title, author, isRead}
@@ -139,7 +155,7 @@ function App() {
           </tbody>
         </table>
       </div>
-        <Footer />
+      <Footer />
     </div>
   );
 }
