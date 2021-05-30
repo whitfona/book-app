@@ -1,10 +1,14 @@
 import './App.css';
 import axios from 'axios';
-import Form from './Form.js';
-// import Login from './Login.js';
+// import AddBookForm from './components/AddBookForm.js';
+import Register from './components/Register';
+import Login from './components/Login.js';
 import React, { useState, useEffect } from 'react';
+// import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+// import BookList from './components/BookList'
 import closedBin from './images/bin-closed.png';
 import openBin from './images/bin-open.png';
+import AddBookForm from './components/AddBookForm';
 
 // Title
 function Welcome(props) {
@@ -30,9 +34,9 @@ function BookList({ book, index, removeBook }) {
 }
 
 function App() {
-  // array of book objects {title, author, isRead}
+  // // array of book objects {title, author, isRead}
   const [books, setBooks] = useState([]);
-  // messages for errors or book submission
+  // // messages for errors or book submission
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
 
@@ -42,7 +46,7 @@ function App() {
     // return () => {
     //   To Do, add clean up function
     // };
-  }, [books]);
+  }, [message]);
 
   // message disappears after 3 seconds
   useEffect(() => {
@@ -90,9 +94,10 @@ function App() {
   return (
     <div className='App'>
       <header className='Header'>
-        {/* <Login /> */}
+        <Register />
+        <Login />
         <Welcome name='Nick' />
-        <Form addBook={addBook} />
+        <AddBookForm addBook={addBook}    />
         {message && (
           <h2 className={`message ${error ? 'error' : 'success'}`}>
             {message}

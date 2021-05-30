@@ -44,7 +44,7 @@ h2 {
   margin-top: 1rem;
 }
 
-.Header input[type="text"] {
+.Header input[type="text"], .Header input[type="email"] {
   width: 100%;
   padding: 0.5rem 1rem;
   margin: 0.4rem 0;
