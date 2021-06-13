@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 function Login() {
@@ -6,16 +6,35 @@ function Login() {
   const [passwordLogin, setPasswordLogin] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
 
-  axios.defaults.withCredentials = true;
+  // axios.defaults.withCredentials = true;
 
-  useEffect(() => {
-    axios.get('/login')
-    .then((res) => {
-      if (res.data.loggedIn === true) {
-        setLoginStatus(res.data.user[0].username);
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   getLoggedInUser()
+  //   // axios.get('/login')
+  //   // .then((res) => {
+  //   //   if (res.data.loggedIn === true) {
+  //   //     setLoginStatus(res.data.user[0].username);
+  //   //   }
+  //   // })
+  //   return () => {
+  //     setUsernameLogin('')
+  //     setPasswordLogin('')
+  //     setLoginStatus('')
+  //   }
+  // }, [loginStatus])
+
+  //   const getLoggedInUser = async () => {
+  //   try {
+  //     await axios.get('/login')
+  //       .then((res) => {
+  //       if (res.data.loggedIn === true) {
+  //         setLoginStatus(res.data.user[0].username);
+  //       }
+  //     })
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
   const login = (e) => {
     e.preventDefault();
@@ -53,7 +72,7 @@ function Login() {
           setPasswordLogin(e.target.value);
         }}
       />
-      <input type='submit' name='submit' value='Submit' onClick={login} />
+      <input type='submit' name='submit' value='Login' onClick={login} />
       <h4>{loginStatus}</h4>
     </form>
   );

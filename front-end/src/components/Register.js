@@ -26,6 +26,7 @@ function Register() {
       setMessage('Passwords must match')
     }
     else {
+      // registerUser()
       axios
         .post('/register', {
           username: usernameReg,
@@ -55,11 +56,47 @@ function Register() {
     }
   };
 
+  // const registerUser = async () => { 
+  //   await axios
+  //       .post('/register', {
+  //         username: usernameReg,
+  //         password: passwordReg,
+  //         email: emailReg,
+  //       })
+  //       .then((res) => {
+  //         // console.log(res);
+  //         if (res.status === 200) {
+  //           setError(false);
+  //           setMessage('Registration Successful!');
+
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         if (err.response.status === 409) {
+  //           setError(true);
+  //           setMessage('Username already exists!');
+  //         } else {
+  //           setError(true);
+  //           setMessage('Registration Unsuccessful');
+  //         }
+  //       });
+  //     setUsernameReg('');
+  //     setPasswordReg('');
+  //     setEmailReg('');
+  // }
+
+  // useEffect(() => {
+  //   registerUser()
+  // });
+
   // message disappears after 3 seconds
   useEffect(() => {
     setTimeout(() => {
       setMessage();
     }, 3000);
+    return () => {
+      setMessage('Error')
+    }
   }, [message]);
 
   return (
@@ -97,7 +134,7 @@ function Register() {
           setPasswordVerify(e.target.value);
         }}
       />
-      <input type='submit' name='submit' value='Submit' />
+      <input type='submit' name='submit' value='Register' />
       {message && (
         <h2 className={`message ${error ? 'error' : 'success'}`}>{message}</h2>
       )}

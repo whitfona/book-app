@@ -1,8 +1,9 @@
 /* 
   1. Global Styles
-  2. Header & Header Form Styles
-  3. Table Styles
-  4. Footer Styles
+  2. Navbar
+  3. Header & Header Form Styles
+  4. Table Styles
+  5. Footer Styles
 
 */
 
@@ -10,8 +11,9 @@
 :root{
   --primary-color: #85C5F0;
   --secondary-color: #B2DBF6;
-  --accent-color: #99E428;
+  --accent-color: #264aff;
   --text-white: #fff;
+  --text-dark: #2e3241;
 }
 
 * {
@@ -32,7 +34,31 @@ h2 {
   padding: 2rem 0;
 }
 
-/* 2. Header & Header Form Styles */
+/* 2. Navbar */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 1rem;
+}
+
+.navbar .nav-btn {
+  padding: .75rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--text-white);
+  transition: all ease-in-out 0.2s;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.navbar .nav-btn:hover {
+  background-color: var(--secondary-color);
+  cursor: pointer;
+ }
+
+/* 3. & Header Form Styles */
 
 .welcome-msg {
   color: #fff;
@@ -67,10 +93,13 @@ input[type="submit"], select {
   background-color: var(--accent-color);
   transition: all ease-in-out 0.2s;
   margin-top: 2rem;
+  color: var(--text-white);
+  font-size: 1rem;
 }
 
 input[type="submit"]:hover {
-  background-color: #DBF6B2;
+  background-color: var(--secondary-color);
+  color: var(--text-dark);
   cursor: pointer;
  }
 
@@ -87,7 +116,7 @@ input[type="submit"]:hover {
   color: #ff0000;
 }
 
-/* 3. Table Styles */
+/* 4. Table Styles */
 
 .Read-Books, .To-Read-Books {
   border-top: 2px solid #f8f8f8;
@@ -126,7 +155,7 @@ tbody tr:nth-child(even) {
   cursor: pointer;
 }
 
-/* 4. Footer Styles */
+/*5. Footer Styles */
 footer {
   color: #fff;
   padding: 1rem 0;
