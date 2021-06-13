@@ -16,15 +16,20 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 function App() {
-  const [loggedin] = useState(false)
+  const [loggedin, setLoggedin] = useState(false)
+  const [user, setUser] = useState('')
   
   return (
     <div className='App'>
         <Router>
-          <Navbar loggedin={loggedin} />
-          { loggedin ? <WelcomeMessage name="Nick's" /> : <WelcomeMessage />}
+          <Navbar loggedin={loggedin} setLoggedin={setLoggedin}/>
+          <WelcomeMessage name={user} loggedin={loggedin} />
           <Switch>
-            <Route exact path='/' component={Login} />
+            {/* <Route exact path='/' component={Login} /> */}
+            {/* {loggedin ? <Redirect to='/book-list' /> : <Login setLoggedin={setLoggedin} setUser={setUser}/>} */}
+            <Route exact path='/'>
+              <Login setLoggedin={setLoggedin} setUser={setUser}/>
+            </Route>
             <Route path='/register' component={Register} />
             <ProtectedRoute path='/book-list' loggedin={loggedin}>
               <BookContainer />

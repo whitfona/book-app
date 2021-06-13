@@ -108,6 +108,10 @@ input[type="submit"]:hover {
   justify-content: space-evenly;
 }
 
+h2.message {
+  padding-top: 0rem;
+}
+
 .message.success {
   color: green;
 }
