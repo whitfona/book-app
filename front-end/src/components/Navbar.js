@@ -1,10 +1,17 @@
+import axios from 'axios'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Navbar({ loggedin, setLoggedin }) {
 
   const logout = () => {
-    setLoggedin(false)
+    axios.get('/logout')
+      .then((res) => {
+        setLoggedin(false)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return loggedin ? (

@@ -3,7 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-// const { createToken, validateToken } = require('./JTW')
+const { createToken, validateToken } = require('./JTW')
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 require('dotenv').config();
@@ -104,12 +104,11 @@ app.post('/register', (req, res) => {
   );
 });
 
-
-app.get('/login', (req, res) => {
-  if (req.session.user) {
-    res.send({loggedIn: true, user: req.session.user});
+app.get('/login', validateToken, (req, res) => {
+  if (req.authenticated) {
+    res.status(200).send({ authenticated : true })
   } else {
-    res.send({loggedIn: false});
+    res.status(400).send({ authenticated: false });
   }
 });
 
@@ -127,8 +126,16 @@ app.post('/login', (req, res) => {
         if (result.length > 0) {
           bcrypt.compare(password, result[0].password, (err, response) => {
             if (response) {
-              req.session.user = result
-              res.send(result)
+              user = result[0]
+              // res.send(user)
+              console.log(user)
+              
+              const accessToken = createToken(user);
+
+              res.cookie('reading-token', accessToken, {
+                maxAge: 60*60*24*1000,
+                httpOnly: true,
+              }).send(user)
             } else {
               res.send({ message: 'Wrong username or password!' });
             }
@@ -139,6 +146,13 @@ app.post('/login', (req, res) => {
       }
     );
 })
+
+app.get('/logout', (req, res) => {
+  res.cookie('reading-token', '', {
+    maxAge: 1
+  }).send('')
+});
+
 
 // set up listening port
 app.listen(PORT, hostname, () =>

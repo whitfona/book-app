@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect, useLocation } from 'react-router-dom'
+// import BookList from './BookList';
 
-function Login({ setLoggedin, setUser }) {
+function Login({ setLoggedin, setUser, loggedin }) {
   const [usernameLogin, setUsernameLogin] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
   const [loginStatus, setLoginStatus] = useState('');
@@ -50,7 +51,7 @@ function Login({ setLoggedin, setUser }) {
         if (res.data.message) {
           setLoginStatus(res.data.message);
         } else {
-          setUser(res.data[0].username);
+          setUser(res.data.username);
           setLoggedin(true)
           setRedirectToReferrer(true)
         }
@@ -62,7 +63,9 @@ function Login({ setLoggedin, setUser }) {
     return <Redirect to={state?.form || '/book-list'} />
   }
 
-  return (
+  return loggedin 
+    ? <Redirect to={'/book-list'} />
+    : (
     <form className='form-padding' onSubmit={login}>
       <h1>Please Log In</h1>
       <input
