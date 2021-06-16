@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
+// const { createToken, validateToken } = require('./JTW')
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const saltRounds = 10;
 require('dotenv').config();
 
 const PORT = process.env.PORT || 5000;
@@ -72,9 +73,7 @@ app.delete('/delete-book', (req, res) => {
 
 // register user (add user to database)
 app.post('/register', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const email = req.body.email;
+  const {username, password, email} = req.body;
 
   // query database to see if username already exisits
   connection.query(
@@ -102,8 +101,6 @@ app.post('/register', (req, res) => {
         });
       }
     }
- 
- 
   );
 });
 
@@ -118,8 +115,7 @@ app.get('/login', (req, res) => {
 
 // login user (validate user is in database)
 app.post('/login', (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    const {username, password} = req.body;
 
     connection.query(
       'SELECT * FROM Users WHERE username = ?',
@@ -132,7 +128,6 @@ app.post('/login', (req, res) => {
           bcrypt.compare(password, result[0].password, (err, response) => {
             if (response) {
               req.session.user = result
-              console.groupCollapsed(result)
               res.send(result)
             } else {
               res.send({ message: 'Wrong username or password!' });
