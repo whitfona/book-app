@@ -1,17 +1,28 @@
 import React from 'react';
 import closedBin from '../images/bin-closed.png';
 import openBin from '../images/bin-open.png';
+import edit from '../images/pencil.png';
+import editHover from '../images/edit.png';
 
-function BookList({ book, index, removeBook }) {
+function BookList({ book, index, removeBook, getBookToEdit }) {
   return (
     <tr>
       <td>{book.title}</td>
       <td>{book.author} </td>
+      <td className='table-icon' onClick={() => getBookToEdit(book)}>
+          <img
+          className='icon'
+          src={edit}
+          alt='Edit Button'
+          onMouseOver={(e) => (e.currentTarget.src = editHover)}
+          onMouseLeave={(e) => (e.currentTarget.src = edit)}
+        />
+      </td>
       <td className='table-icon' onClick={() => removeBook(index)}>
         <img
-          className='trash-can'
+          className='icon'
           src={closedBin}
-          alt='Closed Trash Bin'
+          alt='Delete Trash Bin'
           onMouseOver={(e) => (e.currentTarget.src = openBin)}
           onMouseLeave={(e) => (e.currentTarget.src = closedBin)}
         />

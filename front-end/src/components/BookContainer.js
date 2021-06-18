@@ -15,6 +15,7 @@ function BookContainer() {
   // // messages for errors or book submission
   const [message, setMessage] = useState('');
   const [error, setError] = useState(false);
+  const [bookToEdit, setBookToEdit] = useState({});
 
   // get books from api
   useEffect(() => {
@@ -30,6 +31,10 @@ function BookContainer() {
       setMessage();
     }, 3000);
   }, [message]);
+
+  const getBookToEdit = (book) => {
+    setBookToEdit({...book, edit: true});
+  }
 
   const removeBook = (index) => {
     axios
@@ -49,7 +54,7 @@ function BookContainer() {
 
   return (
     <div>
-      <AddBookForm setError={setError} setMessage={setMessage}      />
+      <AddBookForm setError={setError} setMessage={setMessage} bookToEdit={bookToEdit} setBookToEdit={setBookToEdit}/>
       {message && (
         <h2 className={`message ${error ? 'error' : 'success'}`}>{message}</h2>
       )}
@@ -62,6 +67,7 @@ function BookContainer() {
               <th>Title</th>
               <th>Author</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -73,6 +79,7 @@ function BookContainer() {
                   key={index}
                   index={book.id}
                   book={book}
+                  getBookToEdit={getBookToEdit}
                   removeBook={removeBook}
                 />
               ))}
@@ -98,6 +105,7 @@ function BookContainer() {
                   key={index}
                   index={book.id}
                   book={book}
+                  getBookToEdit={getBookToEdit}
                   removeBook={removeBook}
                 />
               ))}

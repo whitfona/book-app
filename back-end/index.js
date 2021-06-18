@@ -50,6 +50,27 @@ app.get('/book-list', (req, res) => {
   });
 });
 
+// get single book from database
+app.post('/edit-book', (req, res) => {
+  connection.query(`SELECT * FROM Book_List WHERE Book_List.id = ${req.body.index}`, (err, result) => {
+    if (err) {
+      console.log(err)
+    }
+    res.json(result);
+  });
+});
+
+// edit book in database
+app.put('/edit-book', (req, res) => {
+  connection.query(`UPDATE Book_List SET VALUES (NULL, "${req.body.title}", "${req.body.author}", "${req.body.isRead}")`, err => {
+    if(err) {
+      console.log(err)
+    }
+    res.send('Book added');
+    res.status(200);
+  })
+});
+
 // add book to database
 app.post('/add-book', (req, res) => {
   connection.query(`INSERT INTO Book_List VALUES (NULL, "${req.body.title}", "${req.body.author}", "${req.body.isRead}")`, err => {
