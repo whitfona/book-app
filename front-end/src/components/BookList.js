@@ -1,15 +1,15 @@
 import React from 'react';
 import closedBin from '../images/bin-closed.png';
 import openBin from '../images/bin-open.png';
-import edit from '../images/pencil.png';
-import editHover from '../images/edit.png';
+// import edit from '../images/pencil.png';
+// import editHover from '../images/edit.png';
 
-function BookList({ book, index, removeBook, getBookToEdit }) {
+function BookList({ book, index, removeBook }) {
   return (
     <tr>
       <td>{book.title}</td>
       <td>{book.author} </td>
-      <td className='table-icon' onClick={() => getBookToEdit(book)}>
+      {/* <td className='table-icon' onClick={() => getBookToEdit(book)}>
           <img
           className='icon'
           src={edit}
@@ -17,7 +17,7 @@ function BookList({ book, index, removeBook, getBookToEdit }) {
           onMouseOver={(e) => (e.currentTarget.src = editHover)}
           onMouseLeave={(e) => (e.currentTarget.src = edit)}
         />
-      </td>
+      </td> */}
       <td className='table-icon' onClick={() => removeBook(index)}>
         <img
           className='icon'
